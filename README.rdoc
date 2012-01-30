@@ -1,0 +1,10 @@
+== About
+
+This project is designed to create 301 URL rewrites for IIS 7 web.config. If you are moving a site over TO ASP .NET, DotNetNuke, Umbraco or some Microsoft hosted project you can re-map URL paths using this tool.
+
+== How's it work
+
+Just add in the URL you have now to the URL you want to go to separated by a comma.
+
+http://www.yourwebsite.com/myold-website-url.php?id=45,http://www.yourwebsite.com/new-url
+
