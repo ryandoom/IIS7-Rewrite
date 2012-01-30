@@ -55,6 +55,18 @@
                 =link_to "You need IIS 7 URL Rewrite Installed", "http://www.iis.net/download/urlrewrite"
           %p
             Once IIS 7 URL Rewrite is installed you can add this code into a section of your web.config
+
+          %textarea{:style =>"width:700px;height:150px;margin-bottom:30px"}
+            
+            <!-- The system.webServer section is required for IIS7 compatability It is ignored by IIS6-->
+            <system.webServer>
+            <rewrite>
+            <rules>
+            <!-- add rules here -->
+            </rules>
+            </rewrite>
+            </system.webServer>
+          
             
       .row
         .span16
