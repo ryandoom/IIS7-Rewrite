@@ -1,3 +1,7 @@
+== Try It
+
+* http://iis7-rewrite.heroku.com/
+
 == About
 
 This project is designed to create 301 URL rewrites for IIS 7 web.config. If you are moving a site over TO ASP .NET, DotNetNuke, Umbraco or some Microsoft hosted project you can re-map URL paths using this tool.
