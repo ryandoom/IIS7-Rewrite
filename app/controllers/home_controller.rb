@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       @converted += "<rule name=\"generated-#{i}\" stopProcessing=\"true\">\r\n" +
       "  <match url=\".*\" />\r\n" +
       "    <conditions logicalGrouping=\"MatchAny\">\r\n" +
-      "      <add input=\"{QUERY_STRING}\" pattern=\".*#{from.strip}.*\" />\r\n" +
+      "      <add input=\"{URL}\" pattern=\"#{from.strip}$\" />\r\n" +
       "    </conditions>\r\n" +
       "    <action type=\"Redirect\" appendQueryString=\"false\" url=\"#{to.strip}\" redirectType=\"Permanent\" />\r\n" +
       "</rule>\r\n" + "\r\n"
