@@ -3,7 +3,7 @@
   %head
     %meta{:charset => "utf-8"}
     %title IIS7 Rewrite Generator
-    = stylesheet_link_tag    "http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css"
+    = stylesheet_link_tag    "bootstrap.css"
     = javascript_include_tag "application"
     = csrf_meta_tag
     :css
@@ -29,7 +29,7 @@
           %ul.nav
             %li.active
               %a{:href => "/"} Home
-       
+
     .container
       .row
         .span16
@@ -38,13 +38,13 @@
               = notice
           -if alert
             .alert-message.warning
-              = alert                             
+              = alert
       = yield
       .row
         .span16
-          %h3 301 Redirect's in Windows IIS 7 
+          %h3 301 Redirect's in Windows IIS 7
           %p
-            Doing 301 redirects in IIS can be a bit of a pain.  This application simply creates the 301 redirect rules you will need to create redirects in IIS 7.  
+            Doing 301 redirects in IIS can be a bit of a pain.  This application simply creates the 301 redirect rules you will need to create redirects in IIS 7.
           %h3 301 redirects for DotNetNuke
           %p
             This application will allow you to put in a before URL and an after URL to create 301 redirects for moving a site to DotNetNuke.  Just put the original URL and the new URL and this will generate the redirect scripts for your web.config file.
@@ -57,7 +57,7 @@
             Once IIS 7 URL Rewrite is installed you can add this code into a section of your web.config
 
           %textarea{:style =>"width:700px;height:150px;margin-bottom:30px"}
-            
+
             <!-- The system.webServer section is required for IIS7 compatability It is ignored by IIS6-->
             <system.webServer>
             <rewrite>
@@ -66,15 +66,15 @@
             </rules>
             </rewrite>
             </system.webServer>
-          
-            
+
+
       .row
         .span16
-          %p 
-            © 
+          %p
+            ©
             = link_to "Web Ascender #{DateTime.now.strftime('%Y')}", "http://www.webascender.com", :target => "_blank"
 
-            
+
     %footer
       = yield :footer
 
