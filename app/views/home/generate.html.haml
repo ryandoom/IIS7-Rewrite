@@ -1,7 +1,111 @@
-%h2 Converted
-%textarea{:style =>"width:700px;height:300px;margin-bottom:30px"}
-  = @converted
+.page-header
+  %h1 301 Redirects
 
+  -if @errors.any?
+    .alert.alert-danger
+      %h2 Errors
+      %p There were errors with row(s) of your inputted data. These rows have been omitted from the generated rules. Please check the Errors tab for a list of errors.
+  %div
+  / Nav tabs
+  %ul.nav.nav-tabs.nav-justified{:role => "tablist"}
+    %li.active{:role => "presentation"}
+      %a{"aria-controls" => "rewriteMap", "data-toggle" => "tab", :href => "#rewriteMap", :role => "tab"} Rewrite Map
+    %li{:role => "presentation"}
+      %a{"aria-controls" => "legacy", "data-toggle" => "tab", :href => "#legacy", :role => "tab"} Legacy Rules
+    -if @errors.any?
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "errors", "data-toggle" => "tab", :href => "#errors", :role => "tab"} Errors
+
+  / Tab panes
+  .tab-content
+    #rewriteMap.tab-pane.active{:role => "tabpanel"} 
+      %h2 Installing 301 Rewrite Map Rules
+      %p Be sure the #{link_to "IIS 7 URL Rewrite", "http://www.iis.net/download/urlrewrite", :target => "_blank"} module is installed on the server.
+      %h3 #1 - Make sure the "Redirect Maps" rule and the &lt;rewriteMaps> node are in place
+      %p
+        :preserve 
+          This code goes in the &lt;system.webServer> &lt;/system.webServer> element in the web.config file:
+      %p
+        Be sure to add the "Redirect Maps" rule AND the entire &lt;rewriteMaps>&lt;/rewriteMaps> element if redirects are already in place.
+      %textarea{:style =>"width:100%;height:350px;margin-bottom:30px"}
+        :preserve
+          <rewrite>
+            <rules>
+              <rule name="Redirect Maps" stopProcessing="true">
+                <match url=".*" />
+                <conditions>
+                  <add input="{StaticRedirects:{PATH_INFO}}" pattern="(.+)" />
+                </conditions>
+                <action type="Redirect" url="{C:1}" appendQueryString="True" redirectType="Permanent" />
+              </rule>
+            </rules>
+            <rewriteMaps>
+              <rewriteMap name="StaticRedirects">
+              </rewriteMap>
+            </rewriteMaps>
+          </rewrite>
+      %h3 #2 - Inside your &lt;rewriteMap> element, place the following redirects
+      %textarea{:style =>"width:100%;height:300px;margin-bottom:30px"}
+        = @rewrite_map
+
+      %h3 #3 - If there are no other redirects, this code can be used inside your &lt;system.webServer>&lt;/system.webServer> element
+      %textarea{:style =>"width:100%;height:500px;margin-bottom:30px"}
+        :preserve
+          <rewrite>
+            <rules>
+              <rule name="Redirect Maps Rule" stopProcessing="true">
+                <match url=".*" />
+                <conditions>
+                  <add input="{StaticRedirects:{PATH_INFO}}" pattern="(.+)" />
+                </conditions>
+                <action type="Redirect" url="{C:1}" appendQueryString="True" redirectType="Permanent" />
+              </rule>
+            </rules>
+            <rewriteMaps>
+              <rewriteMap name="StaticRedirects">
+                #{@rewrite_map}
+              </rewriteMap>
+            </rewriteMaps>
+          </rewrite>
+    #legacy.tab-pane{:role => "tabpanel"} 
+      %h2 Legacy IIS Rules
+      %p Be sure the #{link_to "IIS 7 URL Rewrite", "http://www.iis.net/download/urlrewrite", :target => "_blank"} module is installed on the server.
+      %h3 #1 - Make sure the &lt;rewrite> node is in place
+      %p
+        :preserve 
+          This code goes inside the &lt;system.webServer> &lt;/system.webServer> element in the web.config file:
+      %textarea{:style =>"width:100%;height:350px;margin-bottom:30px"}
+        :preserve
+          <rewrite>
+            <rules>
+            </rules>
+          </rewrite>
+      %h3 #2 - Add the following rules inside the &lt;rules> element:
+      %textarea{:style =>"width:100%;height:500px;margin-bottom:30px"}
+        = @converted
+
+    / Tab panes
+    -if @errors.any?
+      #errors.tab-pane{:role => "tabpanel"} 
+        %h2 Errors
+        %p There were some errors with your data. The problematic rows are listed below:
+        %br
+        %br
+        %p
+          %textarea{:style =>"width:100%;height:250px;margin-bottom:30px"}
+            -@errors.each do |row|
+              = row
 %h2 Original Data
-%pre
-  = params[:q]
+= render "generate_form"
+
+
+
+
+:javascript
+  jQuery(document).ready(function() {
+    console.log("hit");
+    jQuery('#tabs a').click(function (e) {
+      e.preventDefault();
+      jQuery(this).tab('show');
+    });
+  });

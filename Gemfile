@@ -16,4 +16,5 @@ gem 'sass'
 gem "pg"
 group :development, :test do
   gem 'annotate'
+  gem 'byebug'
 end

@@ -1,0 +1,4 @@
+= form_tag("/generate",:method => "post") do
+  = text_area_tag :q, @original_data,:style =>"width:100%;height:250px;margin-bottom:30px", :placeholder => "/home.html,/home.aspx\nhttp://www.oldsite.com/home.html,http://www.newsite.com/home.aspx"
+  %p
+    = submit_tag "Generate Rewrites", :class => "btn btn-primary btn-block btn-lg"

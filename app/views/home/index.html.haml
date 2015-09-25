@@ -1,11 +1,14 @@
+
 .row
   .span16
-    %h2 Paste in the URL you would like to redirect
+    .page-header
+      %h1 301 Redirects in Windows IIS 7
+      %p
+        Doing 301 redirects in IIS can be a bit of a pain.  This application simply creates the 301 redirect rules you will need to create redirects in IIS 7. This is useful if you're utilizing the DotNetNuke content management system or another .NET application.
+    %h2 Paste in the URLs you would like to redirect
     %p You can paste in multiple rows of comma separated URLs. In the form of:
     %p before URL, new URL
     %p eg:  http://www.oldsite.com/home.html,http://www.newsite.com/home.aspx
     %p eg:  /home.html,/home.aspx
-    = form_tag("/generate",:method => "post") do
-      = text_area_tag :q, "",:style =>"width:700px;height:300px;margin-bottom:30px"
-      %p
-        = submit_tag "Generate Rewrites", :class => "btn primary"
+    = render "generate_form"
+

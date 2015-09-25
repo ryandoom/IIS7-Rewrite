@@ -4,7 +4,8 @@
     %meta{:charset => "utf-8"}
     %title IIS7 Rewrite Generator
     = stylesheet_link_tag    "bootstrap.css"
-    = javascript_include_tag "application"
+    = javascript_include_tag "jquery"
+    = javascript_include_tag "bootstrap"
     = csrf_meta_tag
     :css
       body {
@@ -15,21 +16,14 @@
     / Le HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
       %script{ :src => "http://html5shim.googlecode.com/svn/trunk/html5.js" }
-    / Le styles
-    / Le fav and touch icons
-    %link{:href => "images/favicon.ico", :rel => "shortcut icon"}
-    %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
-    %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
-    %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
   %body
-    .topbar
-      .fill
-        .container
-          %a.brand{:href => "/"} IIS7 Rewrite
-          %ul.nav
-            %li.active
-              %a{:href => "/"} Home
-
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          %a.navbar-brand{:href => "/"} IIS7 Rewrite
+        #navbar.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li=link_to "Home", "/"
     .container
       .row
         .span16
@@ -40,43 +34,19 @@
             .alert-message.warning
               = alert
       = yield
-      .row
-        .span16
-          %h3 301 Redirect's in Windows IIS 7
-          %p
-            Doing 301 redirects in IIS can be a bit of a pain.  This application simply creates the 301 redirect rules you will need to create redirects in IIS 7.
-          %h3 301 redirects for DotNetNuke
-          %p
-            This application will allow you to put in a before URL and an after URL to create 301 redirects for moving a site to DotNetNuke.  Just put the original URL and the new URL and this will generate the redirect scripts for your web.config file.
-          %h1 What do I do with the XML that is generated?
-          %p
-            %ul
-              %li
-                =link_to "You need IIS 7 URL Rewrite Installed", "http://www.iis.net/download/urlrewrite"
-          %p
-            Once IIS 7 URL Rewrite is installed you can add this code into a section of your web.config
-
-          %textarea{:style =>"width:700px;height:150px;margin-bottom:30px"}
-
-            <!-- The system.webServer section is required for IIS7 compatability It is ignored by IIS6-->
-            <system.webServer>
-            <rewrite>
-            <rules>
-            <!-- add rules here -->
-            </rules>
-            </rewrite>
-            </system.webServer>
 
 
-      .row
-        .span16
-          %p
-            ©
-            = link_to "Web Ascender #{DateTime.now.strftime('%Y')}", "http://www.webascender.com", :target => "_blank"
+      %footer
+
+        .row
+          .span16
+            %p
+              %br
+              %br
+              ©
+              = link_to "Web Ascender #{DateTime.now.strftime('%Y')}", "http://www.webascender.com", :target => "_blank"
 
 
-    %footer
-      = yield :footer
 
     / /container
 
