@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'puma'
 gem 'rails', '3.2.22'
 #gem 'devise'
 gem 'rake'
